@@ -1,0 +1,68 @@
+﻿@model Lab5.Models.ViewModels.DealsViewModel
+
+@{
+    ViewData["Title"] = "Food Delivery Services";
+}
+
+<h1>Food Delivery Services</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Registration Number</th>
+            <th>Title</th>
+            <th>Fee</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FoodDeliveryServices)
+        {
+            string selectedRow = "";
+            @if (Context.Request.Query["id"] == item.Id)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id">@item.Id</a>
+                </td>
+                <td>@item.Title</td>
+                <td>@item.Fee.ToString("C")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Customers != null && Model.Customers.Any())
+{
+    <h3>Subscribed Customers</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Birth Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model.Customers)
+            {
+                <tr>
+                    <td>@customer.LastName</td>
+                    <td>@customer.FirstName</td>
+                    <td>@customer.BirthDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
