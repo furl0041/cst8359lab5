@@ -13,7 +13,7 @@ namespace Lab5
             builder.Services.AddControllersWithViews();
             var connection = builder.Configuration.GetConnectionString("DefaultConnection");
             // Change this to either options.UseSqlServer(connection) or options.Usesqlite(connection)
-            builder.Services.AddDbContext<DealsFinderDbContext>(options => options.UseSqlServer(connection));
+            builder.Services.AddDbContext<DealsFinderDbContext>(options => options.UseSqlite(connection));
             builder.Services.AddSession();
             var app = builder.Build();
 
